@@ -30,3 +30,18 @@ resource "aws_subnet" "subnet_no_igw" {
     Name = "test-private-subnet"
   }
 }
+
+# create Route table
+resource "aws_route_table" "custom_rt" {
+  vpc_id = aws_vpc.custom_vpc.id
+
+  tags = {
+    Name = "Custom-rt"
+  }
+}
+
+# Assosiate subnet with route table
+resource "aws_route_table_association" "subnet_associ" {
+  subnet_id = aws_subnet.subnet_no_igw.id
+  route_table_id = aws_route_table.custom_rt.id
+}
