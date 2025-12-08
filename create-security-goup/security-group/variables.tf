@@ -1,16 +1,16 @@
 variable "sg_name" {
-  description = "test-terra-sg"
+  description = "Name of the security group"
   type = string
 }
 
 variable "sg_description" {
-  description = "allow using terraform"
+  description = "Description of the security group"
   type = string
   default = "Security group managed by terraform"
 }
 
 variable "vpc_id" {
-  description = "vpc-0340d4162586e7b8d"
+  description = "VPC ID where SG will be created"
   type = string
 }
 
@@ -18,11 +18,11 @@ variable "vpc_id" {
 variable "ingress_rules" {
   description = "list of ingress rules"
   type = list(object({
-    description = "Allow HTTP"
-    from_port =  80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = string
+    from_port =  number
+    to_port = number
+    protocol = string
+    cidr_blocks = list(string)
   }))
 }
 
@@ -30,11 +30,11 @@ variable "ingress_rules" {
 variable "egress_rules" {
   description = "list of egress rules"
   type = list(object({
-    description = "Allow HTTP"
-    from_port =  80
-    to_port = 80
-    protocol = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    description = string
+    from_port =  number
+    to_port = number
+    protocol = string
+    cidr_blocks = list(string)
   }))
   default = [ {
     description = "Allow all outbound"
@@ -46,7 +46,7 @@ variable "egress_rules" {
 }
 
 variable "environment" {
-  description = "prod"
+  description = "Environment tag (prod, dev, staging)"
   type = string
   default = "prod"
 }

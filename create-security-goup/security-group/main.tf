@@ -25,10 +25,11 @@ resource "aws_security_group" "this-group" {
       protocol = egress.value.to_port
       cidr_blocks = egress.value.cidr_blocks
     }
-}
+  }
 
-tags = {
-  Name = var.sg_name
-  Environment = var.environment
-  ManagedBy = "Terraform"
+  tags = {
+   Name = var.sg_name
+    Environment = var.environment
+    ManagedBy = "Terraform"
+  }
 }
