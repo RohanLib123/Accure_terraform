@@ -22,7 +22,7 @@ resource "aws_iam_user_policy" "tester_policy" {
   name = "tester-inline-policy"
   user = aws_iam_user.tester.name
 
-  policy = jsondecode({
+  policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
         {
