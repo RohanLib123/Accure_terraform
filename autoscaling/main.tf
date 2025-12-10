@@ -12,7 +12,7 @@ module "launch_template" {
   iam_instance_profile = var.iam_instance_profile
   associate_public_ip = false
   security_group_ids = var.security_group_ids
-  user_data = file("./userdata/bootstrap.sh")
+ # user_data = file("./userdata/bootstrap.sh")
   tags = var.tags
 }
 
