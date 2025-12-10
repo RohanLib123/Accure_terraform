@@ -17,7 +17,7 @@ resource "aws_launch_template" "this_template" {
   user_data = var.user_data
 
   tag_specifications {
-    #resource_type = "Instance"
+    resource_type = "instance"
     tags = merge(var.tags, { "Name" = "${var.name_prefix}-instance"})
   }
 
