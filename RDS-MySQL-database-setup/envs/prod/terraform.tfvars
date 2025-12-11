@@ -1,8 +1,8 @@
 vpc_id = "vpc-0340d4162586e7b8d"
-ec2_subnet_id = "subnet-06a8f6cfe58dfd721"
+ec2_subnet_id = "subnet-074087bf5ad0f0ad4"
 ec2_ami = "ami-0ecb62995f68bb549"
 ec2_key_name = "test-N-virginia"
-db_subnet_ids = [ "subnet-06a8f6cfe58dfd721" , "subnet-093d3ef414f65d8a7" ]
+db_subnet_ids = [ "subnet-074087bf5ad0f0ad4"]
 db_admin_cidrs = [ "172.31.16.0/20" , "172.31.48.0/20" ]
 security_group_ids = [ "sg-0480a8d9318f183f6" ]
 aws_region = "us-east-1"
