@@ -83,3 +83,7 @@ variable "tags" {
   type = map(string)
   default = {}
 }
+
+variable "secret_name" {
+  type = string
+}
