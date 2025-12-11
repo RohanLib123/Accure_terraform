@@ -4,3 +4,5 @@ ec2_ami = "ami-0ecb62995f68bb549"
 ec2_key_name = "test-N-virginia"
 db_subnet_ids = [ "subnet-05e07cd4009afd717" , "subnet-06a8f6cfe58dfd721" ]
 db_admin_cidrs = [ "172.31.16.0/20" , "172.31.48.0/20" ]
+security_group_ids = [ "sg-0480a8d9318f183f6" ]
+aws_region = "us-east-1"
