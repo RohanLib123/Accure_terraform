@@ -29,6 +29,10 @@ module "rds_sg" {
   tags = var.tags
 }
 
+variable "secret_name" {
+  type = string
+}
+
 module "rds" {
   source = "../../modules/rds_mysql"
   environment = "prod"
