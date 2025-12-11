@@ -2,9 +2,6 @@ resource "random_id" "suffix" {
   byte_length = 4
 }   
 
-variable "secret_name" {
-  type = string
-}
 resource "aws_secretsmanager_secret" "db_secret" {
   count = var.password_secret_arn != "" ? 1 : 0
   #name = "rds/${var.environment}/${random_id.suffix.hex}"
