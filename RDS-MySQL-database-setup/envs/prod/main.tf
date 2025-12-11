@@ -42,6 +42,9 @@ module "rds" {
 module "ec2_iam" {
   source = "../../modules/ec2_client"
   secret_arn = module.rds.secret_arn
+  ami_id = var.ec2_ami
+  subnet_id = var.ec2_subnet_id
+  security_group_ids = var.security_group_ids
 }
 
 data "template_file" "user_data" {
