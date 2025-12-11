@@ -41,6 +41,4 @@ variable "tags" {
   default = {}
 }
 
-variable "ami_id" {
-  type = string
-}
+
