@@ -19,7 +19,8 @@ resource "aws_iam_policy" "read_secret" {
       {
         Effect = "Allow",
         Action = ["secretsmanager:GetSecretValue","secretsmanager:DescribeSecret"],
-        Resource = var.secret_arn != null ? var.secret_arn : "*"
+       # Resource = var.secret_arn != null ? var.secret_arn : "*"
+       Resource = "*"
       }
     ]
   })
