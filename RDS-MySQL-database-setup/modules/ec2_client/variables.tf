@@ -32,5 +32,5 @@ variable "user_data" {
 
 variable "tags" {
   type = map(string)
-  default = {}
+  default = []
 }

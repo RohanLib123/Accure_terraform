@@ -71,18 +71,3 @@ resource "aws_db_instance" "rds" {
   tags = merge({ Name = "rds-${var.environment}", Environment = var.environment }, var.tags)
 }
 
-output "endpoint" {
- value = aws_db_instance.rds.endpoint 
-}
-
-output "port" {
-  value = aws_db_instance.rds.port
-}
-
-output "instance_identifier" {
-  value = aws_db_instance.rds.id
-}
-
-output "secret_arn" {
-  value = local.secret_arn
-}
