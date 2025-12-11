@@ -40,7 +40,6 @@ module "rds" {
 
 module "ec2_iam" {
   source = "../../modules/ec2_client"
-  # We're using the IAM submodule inside ec2_client - pass secret_arn so role created has least privilege
   secret_arn = module.rds.secret_arn
 }
 
