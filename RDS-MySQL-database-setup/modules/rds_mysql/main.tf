@@ -3,8 +3,9 @@ resource "random_id" "suffix" {
 }   
 
 resource "aws_secretsmanager_secret" "db_secret" {
-  count = var.password_secret_arn == name ? 1 : 0
-  name = "rds/${var.environment}/${random_id.suffix.hex}"
+  count = var.password_secret_arn != "" ? 1 : 0
+  #name = "rds/${var.environment}/${random_id.suffix.hex}"
+  name = var.secret_name
   description = "RDS credentials for ${var.db_name} (${var.environment})"
   tags = merge({ Environment = var.environment}, var.tags)
 }
@@ -17,8 +18,8 @@ resource "random_password" "password" {
 
 resource "aws_secretsmanager_secret_version" "db_secret_value" {
   count = var.password_secret_arn == null ? 1 : 0
-  secret_id = aws_secretsmanager_secret.db_secret.db_secret[0].id
-  secret_string = jsonencode({ username = var.username, password = var.random_password.password[0].result })
+  secret_id = aws_secretsmanager_secret.db_secret[0].id
+  secret_string = jsonencode({ username = var.username, password = random_password.password[0].result })
 }
 
 locals {
