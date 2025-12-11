@@ -1,5 +1,6 @@
 module "global_provider" {
   source = "../../global"
+  aws_region = var.aws_region
 }
 
 provider "aws" {
