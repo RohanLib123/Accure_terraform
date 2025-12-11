@@ -37,6 +37,13 @@ resource "aws_security_group_rule" "ingress" {
   )
 }
 
+
+# You should define a local variable to simplify the check:
+locals {
+  # This evaluates to true if the source_sg_id field is present and non-empty
+  source_sg_id_is_present = lookup(var.ingress_rules[each.key], "source_sg_id", "") != ""
+}
+
 resource "aws_security_group_rule" "egress" {
   for_each = { for idx, r in var.egress_rules : idx => r} 
   type = "egress"
