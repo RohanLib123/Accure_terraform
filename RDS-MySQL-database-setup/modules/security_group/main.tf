@@ -14,9 +14,27 @@ resource "aws_security_group_rule" "ingress" {
   protocol = each.value.protocol 
   security_group_id = aws_security_group.this_sg.id
 
-  cidr_blocks = lookup(each.value, "cidr_blocks", [])
+  #cidr_blocks = lookup(each.value, "cidr_blocks", [])
   #source_security_group_id = lookup(each.value, "source_sg_id", null)
   description = lookup(each.value, "description", "")
+
+  # ... other necessary arguments ...
+  
+  # 1. Define source_security_group_id:
+  # Check if a source_sg_id is provided in the input map/object.
+  source_security_group_id = (
+    lookup(each.value, "source_sg_id", "") != "" 
+    ? lookup(each.value, "source_sg_id", null) 
+    : null
+  )
+  
+  # 2. Define cidr_blocks:
+  # Use CIDR blocks ONLY if source_security_group_id is NOT provided (i.e., 'source_sg_id' is null or empty).
+  cidr_blocks = (
+    lookup(each.value, "source_sg_id", "") == ""
+    ? lookup(each.value, "cidr_blocks", []) # Fallback to CIDR blocks
+    : null # Set to null if an SG ID is provided
+  )
 }
 
 resource "aws_security_group_rule" "egress" {
