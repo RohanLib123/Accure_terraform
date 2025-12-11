@@ -37,6 +37,8 @@ module "rds" {
   vpc_security_group_ids = [module.rds_sg.security_group_id]
   db_subnet_ids = var.db_subnet_ids
   tags = var.tags
+  secret_name         = var.secret_name 
+  password_secret_arn = "" 
 }
 
 module "ec2_iam" {
