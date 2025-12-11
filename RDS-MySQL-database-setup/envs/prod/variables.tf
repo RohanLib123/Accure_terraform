@@ -44,3 +44,7 @@ variable "tags" {
 variable "security_group_ids" {
   type = list(string)
 }
+
+variable "secret_name" {
+  type = string
+}
