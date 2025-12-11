@@ -20,7 +20,7 @@ resource "aws_security_group_rule" "ingress" {
 }
 
 resource "aws_security_group_rule" "egress" {
-  for_each = { for idx, r in var.var.egress_rules : idx => r}
+  for_each = { for idx, r in var.egress_rules : idx => r}
   type = "egress"
   from_port = each.value.from_port
   to_port = each.value.to_port
