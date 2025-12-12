@@ -1,6 +1,6 @@
 def lambda_handler(event, context):
-    print("Lambda executed successfully!")
+    print("CloudWatch log entry: Lambda triggered successfully!")
     return {
         "statusCode": 200,
-        "body": "Hello from python Lambda!"
+        "body": "Hello from Python Lambda via API Gateway!"
     }
