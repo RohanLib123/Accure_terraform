@@ -51,3 +51,16 @@ module "erp_subnets" {
     Project     = "ERP"
   }
 }
+
+
+module "erp_prod_igw" {
+  source = "../modules/igw"
+
+  vpc_id   = module.erp_prod_vpc.vpc_id
+  igw_name = "erp-prod-igw"
+
+  tags = {
+    Environment = "production"
+    Project     = "ERP"
+  }
+}
