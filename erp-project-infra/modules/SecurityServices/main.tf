@@ -15,21 +15,30 @@ resource "aws_cloudtrail" "all_regions" {
 
 resource "aws_s3_bucket" "cloudtrail_bucket" {
   bucket = var.cloudtrail_s3_bucket
+  tags = var.tags
+}
+
+resource "aws_s3_bucket_acl" "cloudtrail_bucket" {
+  bucket = aws_s3_bucket.cloudtrail_bucket.id
   acl    = "private"
+}
 
-  versioning {
-    enabled = true
+resource "aws_s3_bucket_versioning" "cloudtrail_bucket" {
+  bucket = aws_s3_bucket.cloudtrail_bucket.id
+
+  versioning_configuration {
+    status = "Enabled"
   }
+}
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
+resource "aws_s3_bucket_server_side_encryption_configuration" "cloudtrail_bucket" {
+  bucket = aws_s3_bucket.cloudtrail_bucket.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
     }
   }
-
-  tags = var.tags
 }
 
 ##########################
