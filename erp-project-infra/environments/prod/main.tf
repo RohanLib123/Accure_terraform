@@ -231,3 +231,16 @@ module "db_sg" {
   ]
   egress_rules = [] # no public access
 }
+
+module "public_alb" {
+  source             = "./terraform-modules/alb"
+  name               = "erp-public-alb"
+  subnets            = [aws_subnet.public1.id, aws_subnet.public2.id]
+  security_groups    = [module.alb_sg.sg_id]
+  vpc_id             = aws_vpc.main.id
+  acm_certificate_arn = aws_acm_certificate.erp_cert.arn
+  tags = {
+    Environment = "prod"
+    Project     = "ERP"
+  }
+}
