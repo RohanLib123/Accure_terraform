@@ -144,3 +144,90 @@ module "erp_cloudfront_waf" {
   }
 }
 
+module "alb_sg" {
+  source        = "./terraform-modules/security_group"
+  sg_name       = "alb-sg"
+  sg_description = "ALB Security Group"
+  vpc_id        = aws_vpc.main.id
+  ingress_rules = [
+    {
+      from_port   = 443
+      to_port     = 443
+      protocol    = "tcp"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "Allow HTTPS from anywhere"
+    }
+  ]
+  egress_rules = [
+    {
+      from_port   = 0
+      to_port     = 0
+      protocol    = "-1"
+      cidr_blocks = ["0.0.0.0/0"]
+      description = "Allow all outbound"
+    }
+  ]
+}
+
+module "app_sg" {
+  source        = "./terraform-modules/security_group"
+  sg_name       = "app-ec2-sg"
+  sg_description = "App EC2 Security Group"
+  vpc_id        = aws_vpc.main.id
+  ingress_rules = [
+    {
+      from_port      = 80
+      to_port        = 80
+      protocol       = "tcp"
+      security_groups = [module.alb_sg.sg_id]
+      description    = "Allow HTTP from ALB"
+    },
+    {
+      from_port      = 443
+      to_port        = 443
+      protocol       = "tcp"
+      security_groups = [module.alb_sg.sg_id]
+      description    = "Allow HTTPS from ALB"
+    }
+  ]
+  egress_rules = [
+    {
+      from_port   = 3306
+      to_port     = 3306
+      protocol    = "tcp"
+      cidr_blocks = [] # optional, depends on DB subnet, can also reference SG
+      description = "Allow MySQL outbound"
+    },
+    {
+      from_port   = 5432
+      to_port     = 5432
+      protocol    = "tcp"
+      cidr_blocks = []
+      description = "Allow PostgreSQL outbound"
+    }
+  ]
+}
+
+module "db_sg" {
+  source        = "./terraform-modules/security_group"
+  sg_name       = "db-sg"
+  sg_description = "Database Security Group"
+  vpc_id        = aws_vpc.main.id
+  ingress_rules = [
+    {
+      from_port      = 3306
+      to_port        = 3306
+      protocol       = "tcp"
+      security_groups = [module.app_sg.sg_id]
+      description    = "Allow MySQL from App EC2 SG"
+    },
+    {
+      from_port      = 5432
+      to_port        = 5432
+      protocol       = "tcp"
+      security_groups = [module.app_sg.sg_id]
+      description    = "Allow PostgreSQL from App EC2 SG"
+    }
+  ]
+  egress_rules = [] # no public access
+}
