@@ -257,3 +257,21 @@ module "app_tg" {
     Project     = "ERP"
   }
 }
+
+module "backend_ec2" {
+  source  = "./terraform-modules/ec2_instance"
+  ami_id  = "ami-0abcd1234efgh5678" # Replace with your AMI
+  instance_type = "t3.medium"
+  subnet_id     = aws_subnet.private_app1.id
+  security_group_ids = [module.app_sg.sg_id]
+  key_name      = "my-keypair"
+  iam_role_name = "backend-ec2-role"
+  iam_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonS3FullAccess",
+    "arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy"
+  ]
+  tags = {
+    Environment = "prod"
+    Project     = "ERP"
+  }
+}
