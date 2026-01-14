@@ -275,3 +275,22 @@ module "backend_ec2" {
     Project     = "ERP"
   }
 }
+
+module "erp_rds" {
+  source               = "./terraform-modules/rds"
+  db_name              = "erpdb"
+  db_subnet_group_name = "erp-db-subnet-group"
+  subnet_ids           = [aws_subnet.private_app1.id, aws_subnet.private_app2.id]
+  security_group_ids   = [module.db_sg.sg_id]
+  username             = "admin"
+  password             = "StrongPassword123!"
+  instance_class       = "db.t3.medium"
+  engine               = "mysql"
+  engine_version       = "8.0"
+  multi_az             = true
+  enable_read_replica  = true
+  tags = {
+    Environment = "prod"
+    Project     = "ERP"
+  }
+}
