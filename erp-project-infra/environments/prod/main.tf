@@ -294,3 +294,26 @@ module "erp_rds" {
     Project     = "ERP"
   }
 }
+
+module "cloudwatch_monitoring" {
+  source = "./terraform-modules/cloudwatch"
+
+  ec2_instance_ids = {
+    app1 = module.backend_ec2.instance_id
+  }
+
+  alb_arns = {
+    public_alb = module.public_alb.alb_arn
+  }
+
+  alarm_actions = [
+    aws_sns_topic.alerts.arn
+  ]
+  
+  ec2_cpu_threshold          = 80
+  ec2_period                 = 300
+  ec2_eval_periods           = 2
+  alb_period                 = 60
+  alb_eval_periods           = 2
+  alb_unhealthy_threshold    = 0
+}
