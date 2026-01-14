@@ -115,18 +115,8 @@ module "erp_frontend_s3" {
   }
 }
 
-
-provider "aws" {
-  region = "ap-south-1"
-}
-
-provider "aws" {
-  alias  = "use1"
-  region = "us-east-1"
-}
-
 module "erp_cloudfront_waf" {
-  source = "../modules/cloudfront-waf"
+  source = "../modules/CloudFront-WAF"
 
   providers = {
     aws.use1 = aws.use1
@@ -145,7 +135,7 @@ module "erp_cloudfront_waf" {
 }
 
 module "alb_sg" {
-  source        = "./terraform-modules/security_group"
+  source        = "../modules/Security-Group"
   sg_name       = "alb-sg"
   sg_description = "ALB Security Group"
   vpc_id        = aws_vpc.main.id
@@ -170,7 +160,7 @@ module "alb_sg" {
 }
 
 module "app_sg" {
-  source        = "./terraform-modules/security_group"
+  source        = "../modules/Security-Group"
   sg_name       = "app-ec2-sg"
   sg_description = "App EC2 Security Group"
   vpc_id        = aws_vpc.main.id
@@ -209,7 +199,7 @@ module "app_sg" {
 }
 
 module "db_sg" {
-  source        = "./terraform-modules/security_group"
+  source        = "../modules/Security-Group"
   sg_name       = "db-sg"
   sg_description = "Database Security Group"
   vpc_id        = aws_vpc.main.id
@@ -233,7 +223,7 @@ module "db_sg" {
 }
 
 module "public_alb" {
-  source             = "./terraform-modules/alb"
+  source             = "../modules/ApplicationLoadBalancer"
   name               = "erp-public-alb"
   subnets            = [aws_subnet.public1.id, aws_subnet.public2.id]
   security_groups    = [module.alb_sg.sg_id]
@@ -246,7 +236,7 @@ module "public_alb" {
 }
 
 module "app_tg" {
-  source  = "./terraform-modules/target_group"
+  source  = "../modules/TargetGroup"
   name    = "erp-app-tg"
   vpc_id  = aws_vpc.main.id
   port    = 80
@@ -259,7 +249,7 @@ module "app_tg" {
 }
 
 module "backend_ec2" {
-  source  = "./terraform-modules/ec2_instance"
+  source  = "../modules/EC2"
   ami_id  = "ami-0abcd1234efgh5678" # Replace with your AMI
   instance_type = "t3.medium"
   subnet_id     = aws_subnet.private_app1.id
@@ -277,7 +267,7 @@ module "backend_ec2" {
 }
 
 module "erp_rds" {
-  source               = "./terraform-modules/rds"
+  source               = "../modules/RDS"
   db_name              = "erpdb"
   db_subnet_group_name = "erp-db-subnet-group"
   subnet_ids           = [aws_subnet.private_app1.id, aws_subnet.private_app2.id]
@@ -296,7 +286,7 @@ module "erp_rds" {
 }
 
 module "cloudwatch_monitoring" {
-  source = "./terraform-modules/cloudwatch"
+  source = "../modules/CloudWatch"
 
   ec2_instance_ids = {
     app1 = module.backend_ec2.instance_id
@@ -317,3 +307,17 @@ module "cloudwatch_monitoring" {
   alb_eval_periods           = 2
   alb_unhealthy_threshold    = 0
 }
+
+module "grafana" {
+  source = "../modules/graphana"
+
+  name = "erp-grafana"
+  authentication_providers = ["AWS_SSO"]
+  iam_role_arn = aws_iam_role.grafana_role.arn
+  aws_region   = "ap-south-1"
+  tags = {
+    Project = "ERP"
+    Environment = "prod"
+  }
+}
+
