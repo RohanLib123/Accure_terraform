@@ -244,3 +244,16 @@ module "public_alb" {
     Project     = "ERP"
   }
 }
+
+module "app_tg" {
+  source  = "./terraform-modules/target_group"
+  name    = "erp-app-tg"
+  vpc_id  = aws_vpc.main.id
+  port    = 80
+  protocol = "HTTP"
+  health_check_path = "/health"
+  tags = {
+    Environment = "prod"
+    Project     = "ERP"
+  }
+}
