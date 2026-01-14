@@ -77,3 +77,23 @@ module "erp_nat_gateway" {
     Project     = "ERP"
   }
 }
+
+
+module "erp_route_tables" {
+  source = "../modules/route-table"
+
+  vpc_id           = module.erp_prod_vpc.vpc_id
+  igw_id           = module.erp_prod_igw.igw_id
+  nat_gateway_id   = module.erp_nat_gateway.nat_gateway_id
+
+  public_subnet_ids  = module.erp_subnets.public_subnet_ids
+  private_subnet_ids = module.erp_subnets.private_subnet_ids
+
+  public_rt_name  = "public-rt"
+  private_rt_name = "private-rt"
+
+  tags = {
+    Environment = "production"
+    Project     = "ERP"
+  }
+}
