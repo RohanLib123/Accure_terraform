@@ -321,3 +321,16 @@ module "grafana" {
   }
 }
 
+module "security_services" {
+  source = "../modules/SecurityServices"
+
+  cloudtrail_s3_bucket     = "erp-cloudtrail-logs"
+  cloudwatch_log_group_arn = aws_cloudwatch_log_group.cloudtrail.arn
+  cloudwatch_role_arn      = aws_iam_role.cloudtrail_role.arn
+  config_role_arn          = aws_iam_role.config_role.arn
+  config_s3_bucket         = "erp-config-logs"
+  tags = {
+    Project     = "ERP"
+    Environment = "prod"
+  }
+}
