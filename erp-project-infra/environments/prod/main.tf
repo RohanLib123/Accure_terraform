@@ -2,6 +2,11 @@ provider "aws" {
   region = "ap-south-1"
 }
 
+provider "aws" {
+  alias  = "use1"
+  region = "us-east-1"
+}
+
 module "erp_prod_vpc" {
   source = "../modules/vpc"
 
@@ -97,3 +102,45 @@ module "erp_route_tables" {
     Project     = "ERP"
   }
 }
+
+module "erp_frontend_s3" {
+  source = "../modules/s3"
+
+  bucket_name = "erp-prod-frontend"
+
+  tags = {
+    Environment = "production"
+    Project     = "ERP"
+    Component   = "frontend"
+  }
+}
+
+
+provider "aws" {
+  region = "ap-south-1"
+}
+
+provider "aws" {
+  alias  = "use1"
+  region = "us-east-1"
+}
+
+module "erp_cloudfront_waf" {
+  source = "../modules/cloudfront-waf"
+
+  providers = {
+    aws.use1 = aws.use1
+  }
+
+  bucket_domain_name   = module.erp_frontend_s3.website_endpoint
+  acm_certificate_arn = "arn:aws:acm:us-east-1:XXXX:certificate/XXXX"
+
+  cloudfront_name = "erp-prod-cloudfront"
+  waf_name        = "erp-prod-waf"
+
+  tags = {
+    Environment = "production"
+    Project     = "ERP"
+  }
+}
+
