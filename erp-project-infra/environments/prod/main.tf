@@ -64,3 +64,16 @@ module "erp_prod_igw" {
     Project     = "ERP"
   }
 }
+
+
+module "erp_nat_gateway" {
+  source = "../modules/nat-gateway"
+
+  public_subnet_id = module.erp_subnets.public_subnet_ids[0]
+  nat_gateway_name = "erp-prod-nat"
+
+  tags = {
+    Environment = "production"
+    Project     = "ERP"
+  }
+}
