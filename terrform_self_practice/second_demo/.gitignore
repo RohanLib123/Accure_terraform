@@ -1,1 +1,5 @@
+.gitignore
 variables.tf
+.terraform.lock.hcl
+.terraform/
+terraform.tfstate
