@@ -15,7 +15,7 @@ variable "instance_type" {
 
 variable "az_name" {
   description = "Availability Zone for the EC2 instance"
-  type        = string
+  type        = list(string)
 }
 
 variable "key_name" {

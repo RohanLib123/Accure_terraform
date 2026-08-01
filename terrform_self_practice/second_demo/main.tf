@@ -1,7 +1,7 @@
 resource "aws_instance" "example" {
     ami = var.ami
     instance_type = var.instance_type   
-    availability_zone = var.az_name
+    availability_zone = var.az_name[0]
     key_name = var.key_name
     vpc_security_group_ids = [aws_security_group.example.id]
     subnet_id = aws_subnet.example.id
@@ -38,7 +38,7 @@ resource "aws_vpc" "example" {
 resource "aws_subnet" "example" {
     vpc_id = aws_vpc.example.id
     cidr_block = var.subnet_cidr
-    availability_zone = var.az_name
+    availability_zone = var.az_name[0]
     map_public_ip_on_launch = true
 
     tags = {
