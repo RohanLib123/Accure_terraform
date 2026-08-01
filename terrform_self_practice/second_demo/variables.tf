@@ -6,6 +6,11 @@ variable "region" {
 variable "ami" {
   description = "AMI ID for the instance"
   type        = string 
+
+  validation {
+    condition = length(var.ami) > 4 && substr(var.ami, 0, 4) == "ami-"
+    error_message = "The image_id value must be a valid AMI ID, starting with \"ami-\"."
+  }
 }
 
 variable "instance_type" {
