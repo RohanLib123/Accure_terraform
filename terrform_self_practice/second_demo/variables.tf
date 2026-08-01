@@ -3,6 +3,19 @@ variable "region" {
   type        = string
 }
 
+variable "access_key" {
+  type = string
+  description = "AWS Access key"
+  ephemeral = true
+}
+
+variable "seceret_key" {
+  type = string
+  description = "AWS Secrete Access Key"
+  sensitive = true
+  ephemeral = true
+}
+
 variable "ami" {
   description = "AMI ID for the instance"
   type        = string 
