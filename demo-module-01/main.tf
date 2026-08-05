@@ -35,3 +35,8 @@ module "demo-vpc" {
   subnet_cidr = var.subnet_cidr
   availability_zone = var.availability_zone
 }
+
+module "demo_web_health" {
+  source = "./modules/demo_web_health"
+  instance_id = module.demo-instance.instance_id
+}
