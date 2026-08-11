@@ -14,7 +14,6 @@ In this folder there are 4 modules
 
 3) Run `terraform init` Command
  Working Dir :- \Accure_terraform\demo-module-02
- 
 
 4) run `terraform validate` Command ( to check any errors)
  Working Dir :- \Accure_terraform\demo-module-02
