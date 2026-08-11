@@ -32,5 +32,5 @@ Check the output and resources are created
 ---
 
 ### Note :- After practice don't forget to destroy infrs using `terraform destroy` command
- Working Dir :- \Accure_terraform\
+Working Dir :- \Accure_terraform\
 ---
