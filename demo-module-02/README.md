@@ -1,14 +1,15 @@
+----
 ## demo-module-02
 In this folder there are 4 modules
-1) test-internet-gateway :- It create Internet gateway.
-2) test-route-table :- It create route table and route table association.
-3) test-subnet :- It Create Subnet
-4) test-vpc :- It create VPC
+1) *test-internet-gateway* :- It create Internet gateway.
+2) *test-route-table* :- It create route table and route table association.
+3) *test-subnet* :- It Create Subnet
+4) *test-vpc* :- It create VPC
 ---
 
-# Execution process
+## Execution process
 1) clone directory
-2) Create "terraform.tfvars" file with values for variables 
+2) Create "terraform.tfvars" file with values for variables.
  Working Dir:- \Accure_terraform\demo-module-02
 
 
@@ -16,19 +17,19 @@ In this folder there are 4 modules
  Working Dir :- \Accure_terraform\demo-module-02
 
 4) run `terraform validate` Command ( to check any errors)
- Working Dir :- \Accure_terraform\demo-module-02
+ Working Dir :- \Accure_terraform\demo-module-02    
  also in all sub folder where `.tf` files are present
 
-5) run `terraform plan` Command
+5) run `terraform plan` Command  
  Working Dir :- \Accure_terraform\demo-module-02
 
 
-6) run `terraform apply` Command
+6) run `terraform apply` Command  
  Working Dir :- \Accure_terraform\demo-module-02
 
 ---
 Check the output and resources are created
-### In output you will get Ids of Internet Gateway, Route Table, Subnet and VPC on display
+#### In output you will get Ids of Internet Gateway, Route Table, Subnet and VPC on display
 ---
 
 ### Note :- After practice don't forget to destroy infrs using `terraform destroy` command
