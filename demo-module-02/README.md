@@ -7,16 +7,35 @@ In this folder there are 4 modules
 
 # Execution process
 1) clone directory
-2) Create terraform.tfvars file with values for variables 
-    2.1) Working Dir:-  \Accure_terraform\demo-module-02
+2) Create "terraform.tfvars" file with values for variables 
+ Working Dir:-  
+ --- 
+ \Accure_terraform\demo-module-02
+ ---
+
 3) Run `terraform init` Command
-    3.1) Working Dir :- \Accure_terraform\
+ Working Dir :-
+  --- 
+  \Accure_terraform\
+   ---
+
 4) run `terraform validate` Command ( to check any errors)
-    4.1) Working Dir :- \Accure_terraform\
+ Working Dir :- 
+ ---
+ \Accure_terraform\
+ ---
+
 5) run `terraform plan` Command
-    5.1) Working Dir :- \Accure_terraform\
+ Working Dir :- 
+ ---
+ \Accure_terraform\
+ ---
+
 6) run `terraform apply` Command
-    6.1) Working Dir :- \Accure_terraform\
+ Working Dir :- 
+ ---
+ \Accure_terraform\
+ ---
 
 Check the output and resources are created
 ### In output you will get Ids of Internet Gateway, Route Table, Subnet and VPC on display
