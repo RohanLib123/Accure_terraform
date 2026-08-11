@@ -1,2 +1,0 @@
-### Description for Folder demo-module-02
-
