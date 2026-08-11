@@ -13,18 +13,19 @@ In this folder there are 4 modules
 
 
 3) Run `terraform init` Command
- Working Dir :- \Accure_terraform\
+ Working Dir :- \Accure_terraform\demo-module-02
  
 
 4) run `terraform validate` Command ( to check any errors)
- Working Dir :- \Accure_terraform\
+ Working Dir :- \Accure_terraform\demo-module-02
+ also in all sub folder where `.tf` files are present
 
 5) run `terraform plan` Command
- Working Dir :- \Accure_terraform\
+ Working Dir :- \Accure_terraform\demo-module-02
 
 
 6) run `terraform apply` Command
- Working Dir :- \Accure_terraform\
+ Working Dir :- \Accure_terraform\demo-module-02
 
 ---
 Check the output and resources are created
@@ -32,6 +33,6 @@ Check the output and resources are created
 ---
 
 ### Note :- After practice don't forget to destroy infrs using `terraform destroy` command
-Working Dir :- \Accure_terraform\
+Working Dir :- \Accure_terraform\demo-module-02
 
 ---
